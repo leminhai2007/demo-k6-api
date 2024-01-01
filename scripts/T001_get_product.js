@@ -32,8 +32,7 @@ export function action(data) {
 
         // Verify
         const result = check(response, {
-            'http response status code is 200': response.status === 200,
-            'token is returned': response.json().token != undefined,
+            'Verify login': response.status === 200 && response.json().token != undefined,
         });
 
         // Get response time
@@ -60,10 +59,10 @@ export function action(data) {
 
         // Verify
         const result = check(response, {
-            'http response status code is 200': response.status === 200,
-            'products are returned': response.json().products != undefined,
-            'total of products is 100': response.json().total === 100,
-            'number of displayed products is 30': response.json().limit === 30,
+            'Verify get products': response.status === 200 &&
+                response.json().products != undefined && 
+                response.json().total === 100 &&
+                response.json().limit === 30,
         });
 
         // Get response time
@@ -89,8 +88,8 @@ export function action(data) {
 
         // Verify
         const result = check(response, {
-            'http response status code is 200': response.status === 200,
-            'total of products is correct': response.json().total == data.total,
+            'Verify search product': response.status === 200 &&
+                response.json().total == data.total,
         });
 
         // Get response time
@@ -119,8 +118,8 @@ export function action(data) {
 
         // Verify
         const result = check(response, {
-            'http response status code is 200': response.status === 200,
-            'expected product is returned': response.json().title === productTitle,
+            'Verify get product item': response.status === 200 &&
+                response.json().title === productTitle,
         });
 
         // Get response time

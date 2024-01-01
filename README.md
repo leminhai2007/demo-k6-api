@@ -21,14 +21,40 @@ xk6 build --with github.com/szkiba/xk6-dotenv@latest
 
 ## Run k6
 
-Create new script
+### Create new script
 ```
 k6 new
 ```
-Run script
+### Run script
 ```
 k6 run scenario.js
 ```
-Run script with xk6 extension (after build another k6 binary with dashboard extension)
+### Run script and stream result to Grafana Cloud
+
+Add token from Grafana Cloud
 ```
-.\k6.exe run scenario.js
+k6 login cloud --token <your token>
+```
+Run script with option --out
+```
+k6 run --out cloud scenario.js
+```
+### Run script and stream result to local Grafana TimescaleDB docker
+
+Build docker compose
+```
+docker compose -f .\docker-compose-timescaledb.yml up
+```
+Build k6 with xk6
+```
+xk6 build --with github.com/grafana/xk6-output-timescaledb@latest
+```
+Run script
+```
+.\k6.exe run scenario.js -o timescaledb=postgresql://k6:k6@localhost:5432/k6
+```
+Go to Grafana
+```
+http://localhost:3000/
+admin/admin
+```
