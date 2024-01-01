@@ -43,7 +43,7 @@ k6 run --out cloud scenario.js
 
 Build docker compose
 ```
-docker compose -f .\docker-compose-timescaledb.yml up
+docker compose -f .\docker\docker-compose-timescaledb.yml -p gfn-timescaledb up
 ```
 Build k6 with xk6
 ```
@@ -52,6 +52,30 @@ xk6 build --with github.com/grafana/xk6-output-timescaledb@latest
 Run script
 ```
 .\k6.exe run scenario.js -o timescaledb=postgresql://k6:k6@localhost:5432/k6
+```
+Go to Grafana
+```
+http://localhost:3000/
+admin/admin
+```
+### Run script and stream result to local Grafana Prometheus docker (not try yet)
+
+Build docker compose
+```
+docker compose -f .\docker\docker-compose-prometheus.yml -p gfn-prometheus up
+```
+Build k6 with xk6
+```
+xk6 build --with github.com/grafana/xk6-output-prometheus-remote@latest
+```
+Set environment variable
+```
+K6_PROMETHEUS_RW_SERVER_URL=http://localhost:9090/api/v1/write
+K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true
+```
+Run script
+```
+.\k6.exe run scenario.js -o experimental-prometheus-rw
 ```
 Go to Grafana
 ```
