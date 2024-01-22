@@ -43,7 +43,7 @@ k6 run --out cloud scenario.js
 
 Build docker compose
 ```
-docker compose -f .\docker\docker-compose-timescaledb.yml -p gfn-timescaledb up
+docker compose -f .\docker\docker-compose-timescaledb.yml -p gfn-timescaledb-demo up
 ```
 Build k6 with xk6
 ```
@@ -58,11 +58,11 @@ Go to Grafana
 http://localhost:3000/
 admin/admin
 ```
-### Run script and stream result to local Grafana Prometheus docker (not try yet)
+<!-- ### Run script and stream result to local Grafana Prometheus docker (not try yet)
 
 Build docker compose
 ```
-docker compose -f .\docker\docker-compose-prometheus.yml -p gfn-prometheus up
+docker compose -f .\docker\docker-compose-prometheus.yml -p gfn-prometheus-demo up
 ```
 Build k6 with xk6
 ```
@@ -81,4 +81,4 @@ Go to Grafana
 ```
 http://localhost:3000/
 admin/admin
-```
+``` -->

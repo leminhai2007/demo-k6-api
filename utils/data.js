@@ -1,31 +1,25 @@
 import { randomItem } from 'https://jslib.k6.io/k6-utils/1.4.0/index.js';
 
-export class GetData {
-    constructor(iteration_number) {
-        this.iteration_number = iteration_number;
-    }
+export function getSequentialData(data_list, iteration_number) {
+    return data_list[iteration_number % data_list.length]
+}
 
-    getSequentialData(data_list) {
-        return data_list[this.iteration_number % data_list.length]
-    }
+export function getUniqueData(data_list, iteration_number) {
+    return data_list[iteration_number]
+}
 
-    getUniqueData(data_list) {
-        return data_list[this.iteration_number]
-    }
+export function getRandomData(data_list) {
+    return randomItem(data_list)
+}
 
-    getRandomData(data_list) {
-        return randomItem(data_list)
-    }
-
-    combineData() {
-        const result = {};
-        for (const obj of arguments) {
-            for (const key in obj) {
-                if (obj.hasOwnProperty(key)) {
-                    result[key] = obj[key];
-                }
+export function combineData() {
+    const result = {};
+    for (const obj of arguments) {
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                result[key] = obj[key];
             }
         }
-        return result;
     }
+    return result;
 }
